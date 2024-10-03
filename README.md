@@ -48,7 +48,7 @@ pada file ProdiController masukan query koneksi ke model prodi dan function inde
         return view('prodi.index');
     }
 7. buat folder prodi dan buat file untuk view index halaman prodi `index.blade.php` masukan query berikut
-................
+'''
 <x-app-layout>
     <x-slot name="header">
         <h2 class="font-semibold text-xl text-gray-800 leading-tight">
@@ -98,18 +98,18 @@ pada file ProdiController masukan query koneksi ke model prodi dan function inde
     </div>
 </x-app-layout>
 
-................
+'''
 8. pada file `views/layouts/app.blade.php` tambahkan script berikut untuk library js dan bootstrap
-    ................
+    '''
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css">
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.min.js"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.1/jquery.min.js"></script>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons/font/bootstrap-icons.css" rel="stylesheet">
-    ................
+    '''
 9. pada `web.php` tambahkan route untuk halaman prodi index
-    ................
+    '''
     Route::get('/prodi', [ProdiController::class, 'index'])->name('/prodi')
-    ................
+    '''
 
 
 
