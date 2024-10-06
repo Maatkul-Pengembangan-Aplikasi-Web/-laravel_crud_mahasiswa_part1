@@ -40,13 +40,14 @@ pada file model prodi class prodi masukan query berikut
     ```
 5. buat file controller untuk prodi `php artisan make:controller`
 pada file ProdiController masukan query koneksi ke model prodi dan function index
-    
+    ```
     use App\Models\Prodi;
     ................
     public function index()
     {
         return view('prodi.index');
     }
+    ```
 6. buat folder prodi dan buat file untuk view index halaman prodi `index.blade.php` masukan query berikut
     ```
     <x-app-layout>
