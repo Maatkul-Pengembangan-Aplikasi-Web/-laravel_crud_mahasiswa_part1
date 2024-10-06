@@ -34,14 +34,14 @@ buka halaman laravel dan masuk ke halaman register untuk menambahkan user, setel
     git push -u origin main
     ```
 
-untuk mengupdate perubahan pada repository
+4. mengupdate perubahan pada repository
     ```
     git add .
     git commit -m "catatan"
     git push
     ```
 
-untuk mengembalikan riwayat commit 
+5. untuk mengembalikan riwayat commit 
     ```
     git log
     git revert <commit id>
