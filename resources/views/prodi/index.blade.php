@@ -41,7 +41,12 @@
                                     <td>{{ $prodi->nama }}</td>
                                     <td>
                                         <a href="#"class="btn btn-secondary">Edit</a>
-                                        <a href="#"class="btn btn-danger">Hapus</a>
+                                        <form action="{{ route('prodi/delete', $prodi->id) }}" method="POST"
+                                            class="d-inline">
+                                            @csrf
+                                            @method('DELETE')
+                                            <button class="btn btn-danger">Hapus</button>
+                                        </form>
                                     </td>
                                 </tr>
                             @endforeach

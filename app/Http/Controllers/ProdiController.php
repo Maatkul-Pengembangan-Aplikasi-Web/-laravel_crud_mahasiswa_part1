@@ -30,4 +30,11 @@ class ProdiController extends Controller
 
         return redirect()->route('prodi')->with('success', 'Program Studi berhasil ditambahkan');
     }
+    public function delete($id)
+    {
+        $prodi = Prodi::findOrFail($id);
+        $prodi->delete();
+
+        return redirect()->route('prodi')->with('success', 'Data Program Studi berhasil dihapus');
+    }
 }
