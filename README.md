@@ -137,5 +137,126 @@ pada file ProdiController masukan query koneksi ke model prodi dan function inde
     Route::get('/prodi', [ProdiController::class, 'index'])->name('/prodi')
     ```
 
+### Setup Halaman Program Studi - Fungsi Tambah Data (add)
+1. pada file `ProdiController.php` di folder app/http/controller tambahkan function class create dan save, serta pada function class index
+    ```
+    public function index()
+    {
+        $prodis = Prodi::orderBy('id', 'desc')->get();
+        return view('prodi.index', compact('prodis'));
+    }
+
+    public function create()
+    {
+        return view('prodi.create');
+    }
+
+    public function save(Request $request)
+    {
+        $request->validate([
+            'nama' => 'required'
+        ]);
+
+        Prodi::create([
+            'nama' => $request->nama
+        ]);
+
+        return redirect()->route('prodi')->with('success', 'Program Studi berhasil ditambahkan');
+    }
+    ```
+2. pada file `web.php` di folder routes tambahkan 2 route untuk create dan save
+    ```
+    Route::get('/prodi/create', [ProdiController::class, 'create'])->name('prodi/create');
+    Route::post('/prodi/save', [ProdiController::class, 'save'])->name('prodi/save');
+    ```
+3. buat file `create.blade.php` di folder view/prodi untuk view halaman form tambah data masukan query berikut
+    ```
+    <x-app-layout>
+    <x-slot name="header">
+        <h2 class="font-semibold text-xl text-gray-800 leading-tight">
+            {{ __('Tambah Data Program Studi') }}
+        </h2>
+    </x-slot>
+
+    <div class="py-12">
+        <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
+            <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg">
+                <div class="p-6 text-gray-900">
+                    <form action="{{ route('prodi/save') }}" method="POST">
+                        @csrf
+                        <div class="mb-3">
+                            <label for="nama" class="form-label">Nama Program Studi</label>
+                            <input type="text" class="form-control" id="nama" name="nama">
+                            @error('nama')
+                                <div class="text-danger">{{ $message }}</div>
+                            @enderror
+                        </div>
+                        <button type="submit" class="btn btn-primary">Simpan</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+    </x-app-layout>
+
+    ```
+4. update file `index.blade.php` agar dapat menampilkan data dari database dan beberapa fungsi lainnya
+    ```
+    <x-app-layout>
+    <x-slot name="header">
+        <h2 class="font-semibold text-xl text-gray-800 leading-tight">
+            {{ __('Program Studi') }}
+        </h2>
+    </x-slot>
+
+    <div class="py-12">
+        <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
+            <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg">
+                <div class="p-6 text-gray-900">
+                    <div class="d-flex justify-content-between align-items-center mb-3">
+                        @if (Session::has('success'))
+                            <div class="alert alert-success">
+                                {{ Session::get('success') }}
+                            </div>
+                        @endif
+                        <div class="ml-auto d-flex">
+                            <a href="{{ route('prodi/create') }}" class="btn btn-primary mr-2">Tambah Program Studi</a>
+                            <form action="" method="GET" class="d-flex">
+                                <input type="text" name="search" class="form-control" placeholder="Pencarian">
+                                <button class="btn btn-primary ml-2" type="submit">
+                                    <i class="bi bi-search"></i>
+                                </button>
+                            </form>
+                        </div>
+                    </div>
+
+                    <table class="table table-hover">
+                        <thead class="table-primary">
+                            <tr>
+                                <th>No</th>
+                                <th>Nama Program Studi</th>
+                                <th>Aksi</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach ($prodis as $prodi)
+                                <tr>
+                                    <td>{{ $loop->iteration }}</td>
+                                    <td>{{ $prodi->nama }}</td>
+                                    <td>
+                                        <a href="#"class="btn btn-secondary">Edit</a>
+                                        <a href="#"class="btn btn-danger">Hapus</a>
+                                    </td>
+                                </tr>
+                            @endforeach
+                        </tbody>
+                    </table>
+
+                </div>
+            </div>
+        </div>
+    </div>
+    </x-app-layout>
+    ```
 
 
