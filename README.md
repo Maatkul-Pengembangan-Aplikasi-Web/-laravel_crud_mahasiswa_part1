@@ -22,8 +22,34 @@
 
 buka halaman laravel dan masuk ke halaman register untuk menambahkan user, setelah itu login
 
+### Push ke Repository Github
+1. BUAT AKUN GITHUB
+2. buat repository di GITHUB
+3. pada direktori laravel yang telah dibuat push ke repository
+    ```
+    git init
+    git remote add origin (link repository nya)
+    git add .
+    git commit -m "catatan"
+    git push -u origin main
+    ```
+
+untuk mengupdate perubahan pada repository
+    ```
+    git add .
+    git commit -m "catatan"
+    git push
+    ```
+
+untuk mengembalikan riwayat commit 
+    ```
+    git log
+    git revert <commit id>
+    git push origin master
+    ```
+
 ### Setup Halaman Program Studi
-1. buat file migration untuk tabel jurusan `php artisan make:migration create_prodis_table`
+1. buat file migration untuk tabel prodi `php artisan make:migration create_prodis_table`
 2. pada file migration untuk tabel prodi masukan query berikut pada public function up
     ```
     Schema::create('prodis', function (Blueprint $table) {
