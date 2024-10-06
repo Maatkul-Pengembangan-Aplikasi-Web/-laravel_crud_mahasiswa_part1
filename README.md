@@ -258,8 +258,133 @@ pada file ProdiController masukan query koneksi ke model prodi dan function inde
     </div>
     </x-app-layout>
     ```
+### Setup Halaman Program Studi - Fungsi Edit Data (edit)
+1. pada file `ProdiController.php` di folder app/http/controller tambahkan 2 function class edit dan update
+    ```
+    public function edit($id)
+    {
+        $prodi = Prodi::findOrFail($id);
+        return view('prodi.edit', compact('prodi'));
+    }
 
-### Setup Halaman Program Studi - Fungsi Tambah Data (add)
+    public function update(Request $request, $id)
+    {
+        $request->validate([
+            'nama' => 'required'
+        ]);
+
+        $prodi = Prodi::findOrFail($id);
+        $prodi->update([
+            'nama' => $request->nama
+        ]);
+
+        return redirect()->route('prodi')->with('success', 'Program Studi berhasil diupdated');
+    }
+    ```
+2. pada file `web.php` di folder routes tambahkan 2 route untuk create dan save
+    ```
+    Route::get('/prodi/edit/{id}', [ProdiController::class, 'edit'])->name('prodi/edit');
+    Route::put('/prodi/edit/{id}', [ProdiController::class, 'update'])->name('prodi/update');
+    ```
+3. buat file `edit.blade.php` di folder view/prodi untuk view halaman form edit data 
+    ```
+    <x-app-layout>
+    <x-slot name="header">
+        <h2 class="font-semibold text-xl text-gray-800 leading-tight">
+            {{ __('Edit Program Studi') }}
+        </h2>
+    </x-slot>
+
+    <div class="py-12">
+        <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
+            <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg">
+                <div class="p-6 text-gray-900">
+                    <form action="{{ route('prodi/edit', $prodi->id) }}" method="POST">
+                        @csrf
+                        @method('PUT')
+                        <div class="mb-3">
+                            <label for="nama" class="form-label">Nama Program Studi</label>
+                            <input type="text" class="form-control" id="nama" name="nama"
+                                value="{{ $prodi->nama }}">
+                            @error('nama')
+                                <div class="text-danger">{{ $message }}</div>
+                            @enderror
+                        </div>
+                        <button type="submit" class="btn btn-warning">Simpan</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+    </x-app-layout>
+    ```
+4. update file `index.blade.php` agar dapat menampilkan data dari database dan beberapa fungsi lainnya
+    ```
+    <x-app-layout>
+    <x-slot name="header">
+        <h2 class="font-semibold text-xl text-gray-800 leading-tight">
+            {{ __('Program Studi') }}
+        </h2>
+    </x-slot>
+
+    <div class="py-12">
+        <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
+            <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg">
+                <div class="p-6 text-gray-900">
+                    <div class="d-flex justify-content-between align-items-center mb-3">
+                        @if (Session::has('success'))
+                            <div class="alert alert-success">
+                                {{ Session::get('success') }}
+                            </div>
+                        @endif
+                        <div class="ml-auto d-flex">
+                            <a href="{{ route('prodi/create') }}" class="btn btn-primary mr-2">Tambah Program Studi</a>
+                            <form action="" method="GET" class="d-flex">
+                                <input type="text" name="search" class="form-control" placeholder="Pencarian">
+                                <button class="btn btn-primary ml-2" type="submit">
+                                    <i class="bi bi-search"></i>
+                                </button>
+                            </form>
+                        </div>
+                    </div>
+
+                    <table class="table table-hover">
+                        <thead class="table-primary">
+                            <tr>
+                                <th>No</th>
+                                <th>Nama Program Studi</th>
+                                <th>Aksi</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach ($prodis as $prodi)
+                                <tr>
+                                    <td>{{ $loop->iteration }}</td>
+                                    <td>{{ $prodi->nama }}</td>
+                                    <td>
+                                        <a
+                                            href="{{ route('prodi/edit', $prodi->id) }}"class="btn btn-secondary">Edit</a>
+                                        <form action="{{ route('prodi/delete', $prodi->id) }}" method="POST"
+                                            class="d-inline">
+                                            @csrf
+                                            @method('DELETE')
+                                            <button class="btn btn-danger">Hapus</button>
+                                        </form>
+                                    </td>
+                                </tr>
+                            @endforeach
+                        </tbody>
+                    </table>
+
+                </div>
+            </div>
+        </div>
+    </div>
+    </x-app-layout>
+
+    ```
+
+### Setup Halaman Program Studi - Fungsi Hapus Data (delete)
 1. pada file `ProdiController.php` di folder app/http/controller tambahkan function class delete
     ```
     public function delete($id)
