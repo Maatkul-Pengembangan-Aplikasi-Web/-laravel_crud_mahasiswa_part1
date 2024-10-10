@@ -24,7 +24,7 @@ buka halaman laravel dan masuk ke halaman register untuk menambahkan user, setel
 
 ### Push ke Repository Github
 1. BUAT AKUN GITHUB
-2. buat repository di GITHUB
+2. buat repository di GITHUB melalui organization "Matkul Pengembangan Aplikasi Web"
 3. pada direktori laravel yang telah dibuat push ke repository
     ```
     git init
@@ -41,12 +41,6 @@ buka halaman laravel dan masuk ke halaman register untuk menambahkan user, setel
     git push
     ```
 
-5. untuk mengembalikan riwayat commit 
-    ```
-    git log
-    git revert <commit id>
-    git push origin master
-    ```
 
 ### Setup Halaman Program Studi
 1. buat file migration untuk tabel prodi `php artisan make:migration create_prodis_table`
