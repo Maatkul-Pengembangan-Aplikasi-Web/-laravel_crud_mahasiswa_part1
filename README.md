@@ -28,19 +28,12 @@ buka halaman laravel dan masuk ke halaman register untuk menambahkan user, setel
 3. pada direktori laravel yang telah dibuat push ke repository
     ```
     git init
-    git remote add origin (link repository nya)
     git add .
-    git commit -m "catatan"
+    git commit -m "upload"
+    git branch -M main
+    git remote add origin (link repository nya)
     git push -u origin main
     ```
-
-4. mengupdate perubahan pada repository
-    ```
-    git add .
-    git commit -m "catatan"
-    git push
-    ```
-
 
 ### Setup Halaman Program Studi
 1. buat file migration untuk tabel prodi `php artisan make:migration create_prodis_table`
