@@ -45,7 +45,7 @@ buka halaman laravel dan masuk ke halaman register untuk menambahkan user, setel
         $table->timestamps();
     });
     ```
-3. migrasikan tabel prodi `php artisan migration`
+3. migrasikan tabel prodi `php artisan migrate`
 4. buat file model untuk tabel prodi `php artisan make:model Prodi`
 pada file model prodi class prodi masukan query berikut 
     ```
