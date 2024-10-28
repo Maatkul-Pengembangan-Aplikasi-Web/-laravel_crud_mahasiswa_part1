@@ -154,7 +154,7 @@ pada file ProdiController masukan query koneksi ke model prodi dan function inde
             'nama' => $request->nama
         ]);
 
-        return redirect()->route('prodi')->with('success', 'Program Studi berhasil ditambahkan');
+        return redirect()->route('/prodi')->with('success', 'Program Studi berhasil ditambahkan');
     }
     ```
 2. pada file `web.php` di folder routes tambahkan 2 route untuk create dan save
