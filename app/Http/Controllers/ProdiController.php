@@ -7,10 +7,12 @@ use Illuminate\Http\Request;
 
 class ProdiController extends Controller
 {
-    public function index()
+    public function index(Request $request)
     {
-        $prodis = Prodi::orderBy('id', 'desc')->get();
-        return view('prodi.index', compact('prodis'));
+        $search = $request->input('search');
+        $prodis = Prodi::where('nama', 'like', '%' . $search . '%')->orderBy('id', 'desc')->get();
+
+        return view('prodi.index', compact('prodis', 'search'));
     }
 
     public function create()

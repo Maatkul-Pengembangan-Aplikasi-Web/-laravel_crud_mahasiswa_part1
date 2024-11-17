@@ -17,8 +17,9 @@
                         @endif
                         <div class="ml-auto d-flex">
                             <a href="{{ route('prodi/create') }}" class="btn btn-primary mr-2">Tambah Program Studi</a>
-                            <form action="" method="GET" class="d-flex">
-                                <input type="text" name="search" class="form-control" placeholder="Pencarian">
+                            <form action="{{ route('prodi') }}" method="GET" class="d-flex">
+                                <input type="text" name="search" class="form-control" placeholder="Pencarian"
+                                    value="{{ old('search', $search) }}">
                                 <button class="btn btn-primary ml-2" type="submit">
                                     <i class="bi bi-search"></i>
                                 </button>
