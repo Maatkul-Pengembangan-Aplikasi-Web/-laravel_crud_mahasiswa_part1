@@ -34,6 +34,12 @@ buka halaman laravel dan masuk ke halaman register untuk menambahkan user, setel
     git remote add origin (link repository nya)
     git push -u origin main
     ```
+*histori git log
+pada github kita dapat mengembalikan kondisi kode ke belakang (undo) ataupun kedepan (redo) sesuai perubahan git commit yang dilakukan
+1. ketikan perintah `git log` maka akan muncul histori commit yang telah dilakukan
+2. ketikan perintah `git checkout <commit-hash>`
+3. maka repository local kita akan kembali ke kondisi commit tersebut
+4. jika ingin kembali ke kondisi repository utama maka ketikan `git checkout main`
 
 ### Setup Halaman Program Studi
 1. buat file migration untuk tabel prodi `php artisan make:migration create_prodis_table`
@@ -45,13 +51,13 @@ buka halaman laravel dan masuk ke halaman register untuk menambahkan user, setel
         $table->timestamps();
     });
     ```
-3. migrasikan tabel prodi `php artisan migration`
+3. migrasikan tabel prodi `php artisan migrate`
 4. buat file model untuk tabel prodi `php artisan make:model Prodi`
 pada file model prodi class prodi masukan query berikut 
     ```
     protected $fillable = ['nama'];
     ```
-5. buat file controller untuk prodi `php artisan make:controller`
+5. buat file controller untuk prodi `php artisan make:controller ProdiController`
 pada file ProdiController masukan query koneksi ke model prodi dan function index
     ```
     use App\Models\Prodi;
@@ -148,7 +154,7 @@ pada file ProdiController masukan query koneksi ke model prodi dan function inde
             'nama' => $request->nama
         ]);
 
-        return redirect()->route('prodi')->with('success', 'Program Studi berhasil ditambahkan');
+        return redirect()->route('/prodi')->with('success', 'Program Studi berhasil ditambahkan');
     }
     ```
 2. pada file `web.php` di folder routes tambahkan 2 route untuk create dan save
