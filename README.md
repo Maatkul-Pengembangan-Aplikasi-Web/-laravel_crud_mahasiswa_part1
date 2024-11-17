@@ -531,5 +531,5 @@ pada file ProdiController masukan query koneksi ke model prodi dan function inde
         </div>
     </div>
     </x-app-layout>
-
+ 
     ```
